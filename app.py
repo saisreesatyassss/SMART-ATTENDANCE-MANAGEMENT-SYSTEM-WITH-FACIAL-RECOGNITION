@@ -61,7 +61,7 @@ def chat_bot():
 def send_email():
      recipient = "reshmasriharika@gmail.com"
      subject = "Test Mail"
-     message_body = "This is a satyaaaaa mail"
+     message_body = "he is absent for the class 26/08/2023"
 
      msg = Message(subject=subject,sender="reshmasriharika",recipients=[recipient])
      msg.body = message_body
@@ -99,4 +99,5 @@ def make_single_qr():
     return app.response_class(image_stream.read(), mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
