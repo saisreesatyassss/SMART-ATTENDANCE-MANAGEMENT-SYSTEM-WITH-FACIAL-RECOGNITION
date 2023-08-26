@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' content='width:device-width, initial-scale:1.0'/>
+    <title>QRIT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-style.css') }}" />
+    <!-- Add any additional stylesheets or scripts here -->
+
+    <style>
+         /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito|Lacquer');
+
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Nunito, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    transition: 0.4s ease all;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: #080808;
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo {
+    cursor: pointer;
+    font-family: Lacquer, sans-serif;
+}
+
+.navbar ul.links {
+    margin-left: auto;
+    margin-right: 50px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul.links li {
+    text-transform: uppercase;
+    padding: 0 15px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease all;
+}
+
+.navbar ul.links li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar ul.links li:hover {
+    background: #ffc600;
+    cursor: pointer;
+}
+
+/* Button Styles */
+button {
+    background: #ffc600;
+    outline: none;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: 1px solid #703e00;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color: white;
+    background: #703e00;
+    border-color: #ffc600;
+}
+
+  .navbar ul.links {
+            margin-left: auto;
+            margin-right: 50px;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar ul.links li {
+            text-transform: uppercase;
+            padding: 0 15px;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s ease all;
+        }
+
+        .navbar ul.links li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar ul.links li:hover {
+            background: linear-gradient(to right, #ffc600, #ff6f00);
+            cursor: pointer;
+        }
+
+        /* Button Styles */
+        button {
+            background: #ffc600;
+            outline: none;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 1px solid #703e00;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+
+        button:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            color: white;
+            background: #703e00;
+            border-color: #ffc600;
+        }
+
+        /* Content Styles */
+        .content {
+            background: linear-gradient(to right, #343a40, #080808);
+            background-size: cover;
+            height: calc(100vh - 65px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .content h2 {
+            color: #ffc600;
+        }
+
+        /* Toggle Styles */
+        .toggle {
+            position: absolute;
+            top: 32.5px;
+            right: 20px;
+            z-index: 99;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle > div {
+            width: 80%;
+            height: 2px;
+            background: #fff;
+            margin: 3px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .navbar.collapsed .toggle .line1 {
+            transform: rotate(-45deg) translate(-4px, 5px);
+        }
+
+        .navbar.collapsed .toggle .line2 {
+            opacity: 0;
+        }
+
+        .navbar.collapsed .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Feature Cards */
+        .features {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature.feature-1 {
+            background: linear-gradient(to right, #FFC542, #FF6F00);
+        }
+
+        .feature.feature-2 {
+            background: linear-gradient(to right, #5FC7C7, #138496);
+        }
+
+        .feature.feature-3 {
+            background: linear-gradient(to right, #F06A6A, #B83E3E);
+        }
+
+        .feature p {
+            color: #000000;
+        }
+
+        /* Animated Text */
+        .animated-text {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #343a40, #343a40);
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <h2>VIT-AP Attendance system</h2>
+        </div>
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/qr">QR code</a></li>
+            <li><a href="/mails">Mails</a></li>
+            <li><a href="/chat_bot">Chat bot</a></li>
+        </ul>
+        <div class="right">
+            <button>Dashboard</button>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <h1>Emails</h1>
+            <form action="/mails" method="post">
+                <label for="recipient">Recipient Email:</label>
+                <input type="email" id="recipient" name="recipient" required><br>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+                
+                <button type="submit">Send Email</button>
+            </form>
+
+
+             <h2>Attendance Data</h2>
+            <ul>
+                 <h4>sai.21bce9789@vitapstudent.ac.in</h4>
+                 <h4>saisrisatya.21bce7559@vitapstudent.ac.in</h4>
+                 <h4>sruthi.21bce9325@vitapstudent.ac.in</h4>
+                 <h4>preethi.21bce7343@vitapstudent.ac.in</h4>
+                 <h4>keerthi.21bce9260@vitapstudent.ac.in</h4>
+                 <h4>alex.21bce1234@vitapstudent.ac.in</h4>
+                <h4>emma.21bce5678@vitapstudent.ac.in</h4>
+                <h4>liam.21bce9012@vitapstudent.ac.in</h4>
+                <h4>sophia.21bce3456@vitapstudent.ac.in</h4>
+                <h4>mia.21bce7890@vitapstudent.ac.in</h4>
+                <h4>noah.21bce2345@vitapstudent.ac.in</h4>
+                <h4>olivia.21bce6789@vitapstudent.ac.in</h4>
+                <h4>liam.21bce8901@vitapstudent.ac.in</h4>
+                <h4>ava.21bce4567@vitapstudent.ac.in</h4>
+                <h4>william.21bce7890@vitapstudent.ac.in</h4>
+                <h4>ethan.21bce5678@vitapstudent.ac.in</h4>
+                <h4>isabella.21bce1234@vitapstudent.ac.in</h4>
+                <h4>jackson.21bce9012@vitapstudent.ac.in</h4>
+                <h4>olivia.21bce3456@vitapstudent.ac.in</h4>
+                <h4>aiden.21bce7890@vitapstudent.ac.in</h4>
+                <h4>sophia.21bce2345@vitapstudent.ac.in</h4>
+                <h4>lucas.21bce6789@vitapstudent.ac.in</h4>
+                <h4>mia.21bce8901@vitapstudent.ac.in</h4>
+                <h4>oliver.21bce4567@vitapstudent.ac.in</h4>
+                <h4>ava.21bce7890@vitapstudent.ac.in</h4>
+                <h4>jack.21bce5678@vitapstudent.ac.in</h4>
+                <h4>emma.21bce1234@vitapstudent.ac.in</h4>
+                <h4>hannah.21bce9012@vitapstudent.ac.in</h4>
+                <h4>william.21bce3456@vitapstudent.ac.in</h4>
+                <h4>amelia.21bce7890@vitapstudent.ac.in</h4>
+
+
+
+                 
+               
+            </ul>
+        </div>
+    </main>
+
+    <!-- Add any additional content or scripts here -->
+</body>
+</html>

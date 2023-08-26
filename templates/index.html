@@ -1,0 +1,375 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' content='width:device-width, initial-scale:1.0'/>
+    <title>QRIT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/qr">QR Code</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Student Attendance Data</h1>
+        <table class="data-table">
+            <tr>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>Attendance Status</th>
+            </tr>
+            {% for i in range(data[0]|length) %}
+                <tr>
+                    <td>{{ data[0][i] }}</td>
+                    <td>{{ data[1][i] }}</td>
+                    <td>{{ data[2][i] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' content='width:device-width, initial-scale:1.0'/>
+    <title>QRIT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-style.css') }}" />
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/additional-script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+         /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito|Lacquer');
+
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Nunito, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    transition: 0.4s ease all;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: #080808;
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo {
+    cursor: pointer;
+    font-family: Lacquer, sans-serif;
+}
+
+.navbar ul.links {
+    margin-left: auto;
+    margin-right: 50px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul.links li {
+    text-transform: uppercase;
+    padding: 0 15px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease all;
+}
+
+.navbar ul.links li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar ul.links li:hover {
+    background: #ffc600;
+    cursor: pointer;
+}
+
+/* Button Styles */
+button {
+    background: #ffc600;
+    outline: none;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: 1px solid #703e00;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color: white;
+    background: #703e00;
+    border-color: #ffc600;
+}
+
+  .navbar ul.links {
+            margin-left: auto;
+            margin-right: 50px;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar ul.links li {
+            text-transform: uppercase;
+            padding: 0 15px;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s ease all;
+        }
+
+        .navbar ul.links li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar ul.links li:hover {
+            background: linear-gradient(to right, #ffc600, #ff6f00);
+            cursor: pointer;
+        }
+
+        /* Button Styles */
+        button {
+            background: #ffc600;
+            outline: none;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 1px solid #703e00;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+
+        button:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            color: white;
+            background: #703e00;
+            border-color: #ffc600;
+        }
+
+        /* Content Styles */
+        .content {
+            background: linear-gradient(to right, #343a40, #080808);
+            background-size: cover;
+            height: calc(100vh - 65px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .content h2 {
+            color: #ffc600;
+        }
+
+        /* Toggle Styles */
+        .toggle {
+            position: absolute;
+            top: 32.5px;
+            right: 20px;
+            z-index: 99;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle > div {
+            width: 80%;
+            height: 2px;
+            background: #fff;
+            margin: 3px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .navbar.collapsed .toggle .line1 {
+            transform: rotate(-45deg) translate(-4px, 5px);
+        }
+
+        .navbar.collapsed .toggle .line2 {
+            opacity: 0;
+        }
+
+        .navbar.collapsed .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Feature Cards */
+        .features {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature.feature-1 {
+            background: linear-gradient(to right, #FFC542, #FF6F00);
+        }
+
+        .feature.feature-2 {
+            background: linear-gradient(to right, #5FC7C7, #138496);
+        }
+
+        .feature.feature-3 {
+            background: linear-gradient(to right, #F06A6A, #B83E3E);
+        }
+
+        .feature p {
+            color: #000000;
+        }
+
+        /* Animated Text */
+        .animated-text {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #343a40, #343a40);
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <h2>VIT-AP Attendance system </h2>
+        </div>
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/qr">QR code</a></li>
+            <li><a href="/mails">Mails</a></li>
+            <li><a href="/chat_bot">Chat bot</a></li>
+        </ul>
+        <div class="right">
+            <button>Dashboard</button>
+        </div>
+        
+    </div>
+
+<div style="background-color: #343a40; color: white; padding: 20px; text-align: center;">
+        <h1>Welcome to Attendance System</h1>
+        <p>Your solution for efficient attendance management.</p>
+    </div>
+   <div class="container">
+        <h2>Welcome to Our System</h2>
+        <p>We offer an advanced attendance tracking solution using facial recognition technology.</p>
+        <div class="features">
+            <div class="feature">
+                 <p>Facial Recognition</p>
+            </div>
+            <div class="feature">
+                 <p>Automated Notifications</p>
+            </div>
+            <div class="feature">
+                 <p>Real-time Updates</p>
+            </div>
+        </div>
+        <div class="animated-text" id="animatedText">
+            Discover the Future of Attendance Tracking!
+        </div>
+    </div>
+<main style="padding: 20px;">
+    <div style="background: linear-gradient(to bottom, #ffffff, #f5f5f5); padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: #333333; margin-bottom: 20px;">Features</h2>
+        <ul style="list-style-type: disc; margin-left: 20px;">
+            <li>Easy attendance tracking</li>
+            <li>Automated email notifications</li>
+            <li>Real-time updates</li>
+        </ul>
+        
+        <h2 style="color: #333333; margin-top: 40px; margin-bottom: 20px;">Benefits</h2>
+        <ul style="list-style-type: disc; margin-left: 20px;">
+            <li>Efficient management of student attendance</li>
+            <li>Reduced administrative workload</li>
+            <li>Improved communication with students and parents</li>
+        </ul>
+        
+        <h2 style="color: #333333; margin-top: 40px; margin-bottom: 20px;">How it Works</h2>
+        <ol style="list-style-type: decimal; margin-left: 20px;">
+            <li>Students check in using their unique QR code</li>
+            <li>Attendance data is recorded in real-time</li>
+            <li>Automated email notifications are sent to students and parents</li>
+        </ol>
+    </div>
+</main>
+
+     
+    <script>
+        const animatedText = document.getElementById('animatedText');
+        let animationIndex = 0;
+        const animations = ["Revolutionize Attendance", "Experience Innovation", "Efficient and Smart"];
+        
+        function animateText() {
+            animatedText.textContent = animations[animationIndex];
+            animationIndex = (animationIndex + 1) % animations.length;
+        }
+        
+        setInterval(animateText, 2000);
+    </script>
+    <footer style="background-color: #343a40; color: white; text-align: center; padding: 10px;">
+        &copy; 2023 Attendance System. All rights reserved.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' content='width:device-width, initial-scale:1.0'/>
+    <title>QRIT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-style.css') }}" />
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/additional-script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+         /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito|Lacquer');
+
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Nunito, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    transition: 0.4s ease all;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: #080808;
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo {
+    cursor: pointer;
+    font-family: Lacquer, sans-serif;
+}
+
+.navbar ul.links {
+    margin-left: auto;
+    margin-right: 50px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul.links li {
+    text-transform: uppercase;
+    padding: 0 15px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease all;
+}
+
+.navbar ul.links li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar ul.links li:hover {
+    background: #ffc600;
+    cursor: pointer;
+}
+
+/* Button Styles */
+button {
+    background: #ffc600;
+    outline: none;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: 1px solid #703e00;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color: white;
+    background: #703e00;
+    border-color: #ffc600;
+}
+
+/* Content Styles */
+.content {
+    background: url('https://example.com/path-to-your-image.jpg') no-repeat;
+    background-size: cover;
+    height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.content h2 {
+    color: #ffc600;
+}
+
+/* Toggle Styles */
+.toggle {
+    position: absolute;
+    top: 32.5px;
+    right: 20px;
+    z-index: 99;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle > div {
+    width: 80%;
+    height: 2px;
+    background: #fff;
+    margin: 3px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar.collapsed .toggle .line1 {
+    transform: rotate(-45deg) translate(-4px, 5px);
+}
+
+.navbar.collapsed .toggle .line2 {
+    opacity: 0;
+}
+
+.navbar.collapsed .toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+    </style>
+</head>
+<body>
+     <div class="navbar">
+        <div class="logo">
+            <h2>VIT-AP Attendance system </h2>
+        </div>
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/qr">QR code</a></li>
+            <li><a href="/mails">Mails</a></li>
+            <li><a href="/chat_bot">Chat bot</a></li>
+        </ul>
+        <div class="right">
+            <button>Dashboard</button>
+        </div>
+        
+    </div>
+    <main>
+        <div class="container">
+            <h1>Chat Bot</h1>
+            <div id="chat-container"></div>
+            <input type="text" id="user-input" placeholder="Type a command..." />
+            <button id="send-button">Send</button>
+        </div>
+    </main>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        sendButton.addEventListener('click', handleUserInput);
+
+        function handleUserInput() {
+            const userMessage = userInput.value;
+            displayMessage(userMessage, 'user');
+
+            // Process the user's command and generate a bot response
+            const botResponse = getBotResponse(userMessage);
+            displayMessage(botResponse, 'bot');
+
+            // Clear the input field
+            userInput.value = '';
+        }
+
+        function displayMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add(sender);
+            messageElement.textContent = message;
+            chatContainer.appendChild(messageElement);
+        }
+
+        function getBotResponse(userMessage) {
+            // Define predefined data and corresponding responses
+            const predefinedData = {
+    'hello': 'Hello! How can I assist you?',
+    'how are you': 'I am just a bot, but I\'m here to help!',
+    'attendance status': 'Sure, please provide me the student\'s name.',
+    'harika': 'HARIKA is present today.',
+    'keerthi': 'KEERTHI is absent today.',
+    'preethi': 'PREETHI is present today.',
+    'ram': 'RAM is present today.',
+    'satya': 'SATYA is absent today.',
+    'sruhi': 'SRUTHI is present today.',
+    'tell me a joke': 'Why don\'t scientists trust atoms? Because they make up everything!',
+    'what\'s your name?': 'I\'m just a bot, you can call me ChatBot.',
+    'thank you': 'You\'re welcome!',
+    // You can add more predefined commands and responses here
+};
+// Array of available command suggestions
+const commandSuggestions = Object.keys(predefinedData);
+
+// Get input element and suggestions container
+const userInput = document.getElementById('user-input');
+const suggestionsContainer = document.getElementById('suggestions');
+
+// Event listener for input changes
+userInput.addEventListener('input', handleInput);
+
+function handleInput() {
+    const inputValue = userInput.value.toLowerCase();
+    const filteredSuggestions = commandSuggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(inputValue)
+    );
+    
+    // Clear previous suggestions
+    suggestionsContainer.innerHTML = '';
+
+    // Display filtered suggestions
+    filteredSuggestions.forEach(suggestion => {
+        const suggestionElement = document.createElement('div');
+        suggestionElement.textContent = suggestion;
+        suggestionElement.classList.add('suggestion');
+        suggestionElement.addEventListener('click', () => {
+            userInput.value = suggestion;
+            suggestionsContainer.innerHTML = '';
+        });
+        suggestionsContainer.appendChild(suggestionElement);
+    });
+}
+function getBotResponse(userMessage) {
+    const lowerCaseMessage = userMessage.toLowerCase();
+    
+    for (const command in predefinedData) {
+        if (lowerCaseMessage.includes(command.toLowerCase())) {
+            return predefinedData[command];
+        }
+    }
+    
+    return 'I\'m sorry, I didn\'t understand that command.';
+}
+
+
+            // Check if the user's message matches any predefined data
+            for (const command in predefinedData) {
+                if (userMessage.toLowerCase().includes(command)) {
+                    return predefinedData[command];
+                }
+            }
+
+            return 'I\'m sorry, I didn\'t understand that command.';
+        }
+    </script>
+</body>
+</html>

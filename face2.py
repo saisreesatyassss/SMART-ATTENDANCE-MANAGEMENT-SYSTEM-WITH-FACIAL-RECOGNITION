@@ -58,7 +58,10 @@ modeType = 0
 counter = 0
 id = -1
 imgStudent = []
-
+studentEntryExit = {}  # Dictionary to store entry and exit times
+total_duration_text = "0 seconds"
+total_duration = None  
+total_seconds = 0
 
 while True:
     success,img=cap.read() # success is boolean img is numpyarry with imag etails like height weight frames channels 
@@ -96,6 +99,15 @@ while True:
 
                     id = studentIds[matchIndex]
                     name=names[matchIndex]
+                    if id not in studentEntryExit:
+                       studentEntryExit[id] = {'entry': datetime.now(), 'exit': None}
+                    else:
+                       if id in studentEntryExit:
+                          studentEntryExit[id]['exit'] = datetime.now()
+                          total_duration = studentEntryExit[id]['exit'] - studentEntryExit[id]['entry']
+                          if total_duration:
+                              total_seconds = total_duration.total_seconds()
+                              print(f"Total Duration: {total_duration}")
                     if counter == 0:
                         cvzone.putTextRect(bgimage, "Loading", (275, 400))
                         cv2.imshow("Face Attendance", bgimage)
@@ -117,13 +129,60 @@ while True:
                 array = np.frombuffer(blob.download_as_string(), np.uint8)
                 imgStudent = cv2.imdecode(array, cv2.COLOR_BGRA2BGR)
                 print("Image Shape:", imgStudent.shape)
-
+                if total_duration is not None:
+                    total_seconds = total_duration.total_seconds()
+                    if total_seconds >= 60 and total_seconds < 3600:
+                        total_minutes = total_seconds / 60
+                        total_duration_text = f"{total_minutes:.2f} minutes"
+                    elif total_seconds >= 3600:
+                        total_hours = total_seconds / 3600
+                        total_duration_text = f"{total_hours:.2f} hours"
+                    else:
+                        total_duration_text = f"{total_seconds:.2f} seconds"
 
                 # Update data of attendance
                 datetimeObject = datetime.strptime(studentInfo['last_attendance_time'],"%Y-%m-%d %H:%M:%S")
                 secondsElapsed = (datetime.now() - datetimeObject).total_seconds()
                 print(secondsElapsed)
                 if secondsElapsed > 30:
+                    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+                    date = datetime.now().strftime("%Y-%m-%d")
+                    att_ref = db.reference(f'Attendance/{date}')
+                    absentees_ref = att_ref.child('Absentees')
+                    presentees_ref = att_ref.child('Presentees')
+
+                    for student_id, student_data in studentEntryExit.items():
+                        if student_data['exit'] is not None:
+                            student_info = db.reference(f'Students/{id}').get()
+                            if (student_data['exit'] - student_data['entry']).total_seconds() > 30:
+                                 
+                                #  absentee_ref = absentees_ref.child(id)
+                                #  absentee_ref.update({
+                                #      'name': student_info['name'],
+                                #      'total_duration': total_duration_text
+                                #  })
+                                #  presentees_ref.child(id).delete()
+                                presentee_ref = presentees_ref.child(id)
+                                presentee_ref.set({
+                                    'name': student_info['name'],
+                                    'total_duration': total_duration_text
+                                })
+                                # absentees_ref.child(id).delete()
+                            # else:
+                                # absentee_ref = absentees_ref.child(id)
+                                # absentee_ref.update({
+                                #      'name': student_info['name'],
+                                #      'total_duration': total_duration_text
+                                #  })
+                                # presentees_ref.child(id).delete() 
+                                # presentee_ref = presentees_ref.child(id)
+                                # presentee_ref.set({
+                                #     'name': student_info['name'],
+                                #     'total_duration': total_duration_text
+                                # })
+                                # absentees_ref.child(id).delete()
+
                     ref = db.reference(f'Students/{id}')
                     studentInfo['total_attendance'] += 1
                     ref.child('total_attendance').set(studentInfo['total_attendance'])
@@ -188,6 +247,3 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows() # Close all OpenCV windows
-
-
-
